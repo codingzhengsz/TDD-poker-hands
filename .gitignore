@@ -52,6 +52,7 @@ out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
+.idea
 
 # JIRA plugin
 atlassian-ide-plugin.xml
@@ -87,4 +88,5 @@ fabric.properties
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
-
+build
+.gradle
