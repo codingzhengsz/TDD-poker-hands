@@ -11,7 +11,7 @@ public enum Level {
   STRAIGHT("Straight", 5, new StraightVerifier()),
   THREE_OF_KIND("Three of a kind", 4, new ThreeOfAKindVerifier()),
   TWO_PAIRS("Two Pairs", 3, new TwoPairsVerifier()),
-  PAIR("Pair", 2, new HighCardVerifier()),
+  PAIR("Pair", 2, new PairVerifier()),
   HIGH_CARD("High card", 1, new HighCardVerifier());
 
   private String kind;

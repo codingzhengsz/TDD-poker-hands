@@ -270,6 +270,6 @@ public class GameTest {
     // when
     String result = game.run(black, white);
     // then
-    assertEquals("White win", result);
+    assertEquals("White win. - with Pair", result);
   }
 }
