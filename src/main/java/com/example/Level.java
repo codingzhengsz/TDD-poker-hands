@@ -9,7 +9,7 @@ public enum Level {
   FULL_HOUSE("Full House", 7, new FullHouseVerifier()),
   FLUSH("Flush", 6, new FlushVerifier()),
   STRAIGHT("Straight", 5, new StraightVerifier()),
-  THREE_OF_KIND("Three of kind", 4, new HighCardVerifier()),
+  THREE_OF_KIND("Three of a kind", 4, new ThreeOfAKindVerifier()),
   TWO_PAIRS("Two Pairs", 3, new HighCardVerifier()),
   PAIR("Pair", 2, new HighCardVerifier()),
   HIGH_CARD("High card", 1, new HighCardVerifier());
