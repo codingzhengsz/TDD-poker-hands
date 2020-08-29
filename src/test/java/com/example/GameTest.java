@@ -191,4 +191,16 @@ public class GameTest {
     // then
     assertEquals("Black win. - with Straight", result);
   }
+
+  @Test
+  public void
+  should_return_white_win_when_run_given_pokers_black_3H_4D_5S_6C_7D_white_4H_5D_6S_7C_8D() {
+    // given
+    String black = "3H 4D 5S 6C 7D";
+    String white = "4H 5D 6S 7C 8D";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("White win. - with high card 8", result);
+  }
 }
