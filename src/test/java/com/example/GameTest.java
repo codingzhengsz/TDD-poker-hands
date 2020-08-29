@@ -158,8 +158,7 @@ public class GameTest {
   }
 
   @Test
-  public void
-  should_return_Tie_when_given_pokers_black_2D_3D_5D_9D_white_2H_3H_5H_9H_KH() {
+  public void should_return_Tie_when_given_pokers_black_2D_3D_5D_9D_white_2H_3H_5H_9H_KH() {
     // given
     String black = "2D 3D 5D 9D KD";
     String white = "2H 3H 5H 9H KH";
@@ -167,5 +166,17 @@ public class GameTest {
     String result = game.run(black, white);
     // then
     assertEquals("Tie", result);
+  }
+
+  @Test
+  public void
+      should_return_Black_win_when_given_pokers_black_3H_4D_5S_6C_7D_white_3H_3D_5S_9C_3D() {
+    // given
+    String black = "3H 4D 5S 6C 7D";
+    String white = "3H 3D 5S 9C 3D";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("Black win. - with Straight", result);
   }
 }
