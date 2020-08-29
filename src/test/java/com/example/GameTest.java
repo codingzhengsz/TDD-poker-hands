@@ -263,7 +263,8 @@ public class GameTest {
   }
 
   @Test
-  public void should_return_white_win_when_run_given_pokers_black_2H_3D_5S_9C_KD_white_3H_3C_5H_9S_KC() {
+  public void
+      should_return_white_win_when_run_given_pokers_black_2H_3D_5S_9C_KD_white_3H_3C_5H_9S_KC() {
     // given
     String black = "2H 3D 5S 9C KD";
     String white = "3H 3C 5H 9S KC";
@@ -285,7 +286,8 @@ public class GameTest {
   }
 
   @Test
-  public void should_return_Black_win_when_run_given_pokers_black_3H_3D_5S_9C_KD_white_3S_3C_5H_9D_TS() {
+  public void
+      should_return_Black_win_when_run_given_pokers_black_3H_3D_5S_9C_KD_white_3S_3C_5H_9D_TS() {
     // given
     String black = "3H 3D 5S 9C KD";
     String white = "3S 3C 5H 9D TS";
@@ -296,7 +298,8 @@ public class GameTest {
   }
 
   @Test
-  public void should_return_White_win_when_run_given_pokers_black_2H_3D_5S_9C_KD_white_2C_3H_4S_8C_AH() {
+  public void
+      should_return_White_win_when_run_given_pokers_black_2H_3D_5S_9C_KD_white_2C_3H_4S_8C_AH() {
     // given
     String black = "2H 3D 5S 9C KD";
     String white = "2C 3H 4S 8C AH";
