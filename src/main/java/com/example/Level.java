@@ -10,7 +10,7 @@ public enum Level {
   FLUSH("Flush", 6, new FlushVerifier()),
   STRAIGHT("Straight", 5, new StraightVerifier()),
   THREE_OF_KIND("Three of a kind", 4, new ThreeOfAKindVerifier()),
-  TWO_PAIRS("Two Pairs", 3, new HighCardVerifier()),
+  TWO_PAIRS("Two Pairs", 3, new TwoPairsVerifier()),
   PAIR("Pair", 2, new HighCardVerifier()),
   HIGH_CARD("High card", 1, new HighCardVerifier());
 

@@ -248,6 +248,6 @@ public class GameTest {
     // when
     String result = game.run(black, white);
     // then
-    assertEquals("Black wins. - with Two Pairs", result);
+    assertEquals("Black win. - with Two Pairs", result);
   }
 }
