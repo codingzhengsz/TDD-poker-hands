@@ -182,7 +182,7 @@ public class GameTest {
 
   @Test
   public void
-  should_return_Black_win_when_given_pokers_black_AH_2D_3S_4C_5D_white_3H_3D_5S_9C_3D() {
+      should_return_Black_win_when_given_pokers_black_AH_2D_3S_4C_5D_white_3H_3D_5S_9C_3D() {
     // given
     String black = "1H 2D 3S 4C 5D";
     String white = "3H 3D 5S 9C 3D";
@@ -194,7 +194,7 @@ public class GameTest {
 
   @Test
   public void
-  should_return_white_win_when_run_given_pokers_black_3H_4D_5S_6C_7D_white_4H_5D_6S_7C_8D() {
+      should_return_white_win_when_run_given_pokers_black_3H_4D_5S_6C_7D_white_4H_5D_6S_7C_8D() {
     // given
     String black = "3H 4D 5S 6C 7D";
     String white = "4H 5D 6S 7C 8D";
@@ -205,8 +205,7 @@ public class GameTest {
   }
 
   @Test
-  public void
-  should_return_Tie_when_run_given_pokers_black_3H_4D_5S_6C_7D_white_3H_4D_5S_6C_7S() {
+  public void should_return_Tie_when_run_given_pokers_black_3H_4D_5S_6C_7D_white_3H_4D_5S_6C_7S() {
     // given
     String black = "3H 4D 5S 6C 7D";
     String white = "3S 4S 5C 6S 7S";
@@ -218,7 +217,7 @@ public class GameTest {
 
   @Test
   public void
-  should_return_Tie_when_run_given_pokers_black_3H_3D_5S_9C_5D_white_3H_3D_5S_9C_3D() {
+      should_return_white_win_when_run_given_pokers_black_3H_3D_5S_9C_5D_white_3H_3D_5S_9C_3D() {
     // given
     String black = "3H 3D 5S 9C 5D";
     String white = "3H 3D 5S 9C 3D";
@@ -226,5 +225,17 @@ public class GameTest {
     String result = game.run(black, white);
     // then
     assertEquals("White win. - with Three of a kind", result);
+  }
+
+  @Test
+  public void
+      should_return_whit_win_when_run_given_pokers_black_3H_3D_5S_9C_3D_white_AH_AD_5S_9C_AD() {
+    // given
+    String black = "3H 3D 5S 9C 3D";
+    String white = "AH AD 5S 9C AD";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("White win. - with high card A", result);
   }
 }
