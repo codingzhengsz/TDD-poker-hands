@@ -1,15 +1,8 @@
 package com.example;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import static com.example.Level.FOUR_OF_A_KIND;
-import static com.example.Level.FULL_HOUSE;
 import static com.example.Level.HIGH_CARD;
-import static com.example.Level.STRAIGHT_FLUSH;
 
 public class Game {
 
@@ -47,52 +40,12 @@ public class Game {
     return pokerHands;
   }
 
-  private boolean isFourOfAKind(int startIndex, List<Poker> pokerList) {
-    return pokerList.get(startIndex).getValue() == pokerList.get(startIndex + 1).getValue()
-        && pokerList.get(startIndex + 1).getValue() == pokerList.get(startIndex + 2).getValue()
-        && pokerList.get(startIndex + 2).getValue() == pokerList.get(startIndex + 3).getValue();
-  }
-
-  private boolean isFullHouse(List<Poker> pokerList) {
-    return isThreeOfKind(0, pokerList) && isPair(3, pokerList)
-        || isPair(0, pokerList) && isThreeOfKind(2, pokerList);
-  }
-
-  private boolean isThreeOfKind(int startIndex, List<Poker> pokerList) {
-    return pokerList.get(startIndex).getValue() == pokerList.get(startIndex + 1).getValue()
-        && pokerList.get(startIndex + 1).getValue() == pokerList.get(startIndex + 2).getValue();
-  }
-
-  private boolean isPair(int startIndex, List<Poker> pokerList) {
-    return pokerList.get(startIndex).getValue() == pokerList.get(startIndex + 1).getValue();
-  }
-
-  private Level level(PokerHands pokerHands) {
-    List<Poker> pokerList = pokerHands.getPokers();
-    boolean isFlush = true;
-    boolean isStraight = true;
-    for (int i = 1; i < pokerList.size(); i++) {
-      if (!pokerList.get(0).getKind().equals(pokerList.get(i).getKind())) {
-        isFlush = false;
-      }
-      if (pokerList.get(i).getValue() - 1 != pokerList.get(i - 1).getValue()) {
-        isStraight = false;
-        if (pokerList.get(i).getValue() == 14 && pokerList.get(i - 1).getValue() == 5) {
-          isStraight = true;
-          transformAce(pokerList, i);
-        }
+  private Level getLevel(PokerHands pokerHands) {
+    for (Level level : Level.values()) {
+      if (level.getCardTypeVerifier().verify(pokerHands)) {
+        return level;
       }
     }
-    if (isFlush && isStraight) {
-      return STRAIGHT_FLUSH;
-    }
-    if (isFourOfAKind(0, pokerList) || isFourOfAKind(1, pokerList)) {
-      return FOUR_OF_A_KIND;
-    }
-    if (isFullHouse(pokerList)) {
-      return FULL_HOUSE;
-    }
-
     return HIGH_CARD;
   }
 
@@ -103,8 +56,8 @@ public class Game {
   }
 
   private String getResult(PokerHands blackPokerHands, PokerHands whitePokerHands) {
-    Level blackLevel = level(blackPokerHands);
-    Level whiteLevel = level(whitePokerHands);
+    Level blackLevel = getLevel(blackPokerHands);
+    Level whiteLevel = getLevel(whitePokerHands);
     if (blackLevel.getLevel() > whiteLevel.getLevel()) {
       return "Black win. - with " + blackLevel.getKind();
     } else if (blackLevel.getLevel() < whiteLevel.getLevel()) {
@@ -115,62 +68,37 @@ public class Game {
   }
 
   private String getResultWithSameLevel(PokerHands blackPokerHands, PokerHands whitePokerHands) {
-    List<Poker> blackPokerList = blackPokerHands.getPokers();
-    List<Poker> whitePokerList = whitePokerHands.getPokers();
-    HashMap<Integer, Integer> blackPokerMap = new HashMap<>();
-    HashMap<Integer, Integer> whitePokerMap = new HashMap<>();
-    for (int i = 4; i >= 0; i--) {
-      if (blackPokerMap.containsKey(blackPokerList.get(i).getValue())) {
-        int key = blackPokerList.get(i).getValue();
-        blackPokerMap.put(key, blackPokerMap.get(key) + 1);
-      } else {
-        blackPokerMap.put(blackPokerList.get(i).getValue(), 1);
+    HashMap<Integer, Integer> blackPokerMap = calculateCountOfEachKey(blackPokerHands);
+    HashMap<Integer, Integer> whitePokerMap = calculateCountOfEachKey(whitePokerHands);
+    List<Map.Entry<Integer, Integer>> blackList = new ArrayList<>(blackPokerMap.entrySet());
+    List<Map.Entry<Integer, Integer>> whiteList = new ArrayList<>(whitePokerMap.entrySet());
+    blackList.sort(Map.Entry.comparingByValue());
+    whiteList.sort(Map.Entry.comparingByValue());
+    for (int i = blackList.size() - 1; i >= 0; i--) {
+      if (blackList.get(i).getKey().equals(whiteList.get(i).getKey())) {
+        continue;
       }
-      if (whitePokerMap.containsKey(whitePokerList.get(i).getValue())) {
-        int key = whitePokerList.get(i).getValue();
-        whitePokerMap.put(key, whitePokerMap.get(key) + 1);
-      } else {
-        whitePokerMap.put(whitePokerList.get(i).getValue(), 1);
+      if (blackList.get(i).getKey() < whiteList.get(i).getKey()) {
+        return "White win. - with high card " + whiteList.get(i).getKey();
       }
-    }
-    int four;
-    int three;
-    List<Integer> pairList=new ArrayList<Integer>();
-    List<Integer> singleList=new ArrayList<Integer>();
-    for(Map.Entry<Integer, Integer> entry: blackPokerMap.entrySet())
-    {
-//      System.out.println("Key: "+ entry.getKey()+ " Value: "+entry.getValue());
-      if (entry.getValue() == 4) {
-        four = entry.getKey();
-      }
-      if (entry.getValue() == 3) {
-        three = entry.getKey();
-      }
-      if (entry.getValue() == 2) {
-        pairList.add(entry.getKey());
-      }
-      if (entry.getValue() == 1) {
-        singleList.add(entry.getKey());
+      if (blackList.get(i).getKey() > whiteList.get(i).getKey()) {
+        return "Black win. - with high card " + blackList.get(i).getKey();
       }
     }
-
-//    List<Map.Entry<Integer, Integer>> blackList = new ArrayList<>(blackPokerMap.entrySet());
-//    List<Map.Entry<Integer, Integer>> whiteList = new ArrayList<>(whitePokerMap.entrySet());
-//    blackList.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
-//    whiteList.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
-//    for (int i = 0; i < blackList.size(); i++) {
-//      if (blackList.get(i).getKey() < whiteList.get(i).getKey()) {
-//        return "White win. - with high card " + whiteList.get(i).getKey();
-//      }
-//      if (blackList.get(i).getKey() > whiteList.get(i).getKey()) {
-//        return "Black win. - with high card " + blackList.get(i).getKey();
-//      }
-//    }
     return "Tie";
   }
 
-  private void transformAce(List<Poker> pokerList, int index) {
-    pokerList.get(index).setValue(1);
-    pokerList.sort(Comparator.comparing(Poker::getValue));
+  private HashMap<Integer, Integer> calculateCountOfEachKey(PokerHands pokerHands) {
+    List<Poker> pokerList = pokerHands.getPokers();
+    HashMap<Integer, Integer> pokerMap = new HashMap<>();
+    for (Poker poker : pokerList) {
+      int key = poker.getValue() == 14 ? 1 : poker.getValue();
+      if (pokerMap.containsKey(poker.getValue())) {
+        pokerMap.put(key, pokerMap.get(key) + 1);
+      } else {
+        pokerMap.put(key, 1);
+      }
+    }
+    return pokerMap;
   }
 }

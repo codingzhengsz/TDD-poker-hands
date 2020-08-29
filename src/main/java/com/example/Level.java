@@ -1,22 +1,27 @@
 package com.example;
 
+import com.example.verifier.*;
+
 public enum Level {
-  HIGH_CARD("High card", 1),
-  PAIR("Pair", 2),
-  TWO_PAIRS("Two Pairs", 3),
-  THREE_OF_KIND("Three of kind", 4),
-  STRAIGHT("Straight", 5),
-  FLUSH("Flush", 6),
-  FULL_HOUSE("Full House", 7),
-  FOUR_OF_A_KIND("Four of a kind", 8),
-  STRAIGHT_FLUSH("Straight flush", 9);
+  STRAIGHT_FLUSH(
+      "Straight flush", 9, new StraightFlushVerifier(new FlushVerifier(), new StraightVerifier())),
+  FOUR_OF_A_KIND("Four of a kind", 8, new FourOfAKindVerifier()),
+  FULL_HOUSE("Full House", 7, new FullHouseVerifier()),
+  FLUSH("Flush", 6, new FlushVerifier()),
+  STRAIGHT("Straight", 5, new HighCardVerifier()),
+  THREE_OF_KIND("Three of kind", 4, new HighCardVerifier()),
+  TWO_PAIRS("Two Pairs", 3, new HighCardVerifier()),
+  PAIR("Pair", 2, new HighCardVerifier()),
+  HIGH_CARD("High card", 1, new HighCardVerifier());
 
   private String kind;
   private int level;
+  private CardTypeVerifier cardTypeVerifier;
 
-  Level(String kind, int level) {
+  Level(String kind, int level, CardTypeVerifier cardTypeVerifier) {
     this.kind = kind;
     this.level = level;
+    this.cardTypeVerifier = cardTypeVerifier;
   }
 
   public String getKind() {
@@ -33,5 +38,13 @@ public enum Level {
 
   public void setLevel(int level) {
     this.level = level;
+  }
+
+  public CardTypeVerifier getCardTypeVerifier() {
+    return cardTypeVerifier;
+  }
+
+  public void setCardTypeVerifier(CardTypeVerifier cardTypeVerifier) {
+    this.cardTypeVerifier = cardTypeVerifier;
   }
 }
