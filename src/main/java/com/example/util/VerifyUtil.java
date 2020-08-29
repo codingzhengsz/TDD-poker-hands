@@ -12,7 +12,7 @@ public class VerifyUtil {
         && pokerList.get(startIndex + 2).getValue() == pokerList.get(startIndex + 3).getValue();
   }
 
-  public static boolean isThreeOfKind(int startIndex, List<Poker> pokerList) {
+  public static boolean isThreeOfAKind(int startIndex, List<Poker> pokerList) {
     return pokerList.get(startIndex).getValue() == pokerList.get(startIndex + 1).getValue()
         && pokerList.get(startIndex + 1).getValue() == pokerList.get(startIndex + 2).getValue();
   }

@@ -24,19 +24,8 @@ public class Game {
     return pokerHands;
   }
 
-  private Level getLevel(PokerHands pokerHands) {
-    for (Level level : Level.values()) {
-      if (level.getCardTypeVerifier().verify(pokerHands)) {
-        return level;
-      }
-    }
-    return HIGH_CARD;
-  }
-
   public String run(String black, String white) {
-    PokerHands blackPokerHands = generatePokerHands(black);
-    PokerHands whitePokerHands = generatePokerHands(white);
-    return getResult(blackPokerHands, whitePokerHands);
+    return getResult(generatePokerHands(black), generatePokerHands(white));
   }
 
   private String getResult(PokerHands blackPokerHands, PokerHands whitePokerHands) {
@@ -84,5 +73,14 @@ public class Game {
       }
     }
     return pokerMap;
+  }
+
+  private Level getLevel(PokerHands pokerHands) {
+    for (Level level : Level.values()) {
+      if (level.getCardTypeVerifier().verify(pokerHands)) {
+        return level;
+      }
+    }
+    return HIGH_CARD;
   }
 }
