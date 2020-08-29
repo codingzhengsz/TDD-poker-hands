@@ -14,7 +14,7 @@ public class FlushVerifier implements CardTypeVerifier {
       if (!pokerList.get(0).getKind().equals(pokerList.get(i).getKind())) {
         isFlush = false;
         break;
-    }
+      }
     }
     return isFlush;
   }
