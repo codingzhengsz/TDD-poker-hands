@@ -305,4 +305,15 @@ public class GameTest {
     // then
     assertEquals("White win. - with high card A", result);
   }
+
+  @Test
+  public void should_return_Tie_when_run_given_pokers_black_2H_3D_5S_9C_KD_white_2D_3H_5C_9S_KH() {
+    // given
+    String black = "2H 3D 5S 9C KD";
+    String white = "2D 3H 5C 9S KH";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("Tie", result);
+  }
 }
