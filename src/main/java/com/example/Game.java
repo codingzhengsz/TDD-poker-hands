@@ -76,8 +76,8 @@ public class Game {
     List<Poker> pokerList = pokerHands.getPokers();
     HashMap<Integer, Integer> pokerMap = new HashMap<>();
     for (Poker poker : pokerList) {
-      int key = poker.getValue() == 14 ? 1 : poker.getValue();
-      if (pokerMap.containsKey(poker.getValue())) {
+      int key = poker.getValue();
+      if (pokerMap.containsKey(key)) {
         pokerMap.put(key, pokerMap.get(key) + 1);
       } else {
         pokerMap.put(key, 1);
