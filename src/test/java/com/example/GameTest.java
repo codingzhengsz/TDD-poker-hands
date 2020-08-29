@@ -229,7 +229,7 @@ public class GameTest {
 
   @Test
   public void
-      should_return_whit_win_when_run_given_pokers_black_3H_3D_5S_9C_3D_white_AH_AD_5S_9C_AD() {
+      should_return_white_win_when_run_given_pokers_black_3H_3D_5S_9C_3D_white_AH_AD_5S_9C_AD() {
     // given
     String black = "3H 3D 5S 9C 3D";
     String white = "AH AD 5S 9C AD";
@@ -237,5 +237,17 @@ public class GameTest {
     String result = game.run(black, white);
     // then
     assertEquals("White win. - with high card A", result);
+  }
+
+  @Test
+  public void
+  should_return_black_win_when_run_given_pokers_black_3H_3D_5S_9C_5D_white_3C_3S_5H_9D_KD() {
+    // given
+    String black = "3H 3D 5S 9C 5D";
+    String white = "3C 3S 5H 9D KD";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("Black wins. - with Two Pairs", result);
   }
 }
