@@ -8,7 +8,7 @@ public enum Level {
   FOUR_OF_A_KIND("Four of a kind", 8, new FourOfAKindVerifier()),
   FULL_HOUSE("Full House", 7, new FullHouseVerifier()),
   FLUSH("Flush", 6, new FlushVerifier()),
-  STRAIGHT("Straight", 5, new HighCardVerifier()),
+  STRAIGHT("Straight", 5, new StraightVerifier()),
   THREE_OF_KIND("Three of kind", 4, new HighCardVerifier()),
   TWO_PAIRS("Two Pairs", 3, new HighCardVerifier()),
   PAIR("Pair", 2, new HighCardVerifier()),
