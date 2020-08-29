@@ -3,27 +3,11 @@ package com.example;
 import java.util.*;
 
 import static com.example.Level.HIGH_CARD;
+import static com.example.constant.CardMapping.of;
+import static com.example.constant.CardMapping.to;
+import static java.lang.String.valueOf;
 
 public class Game {
-
-  private int calculateValue(char value) {
-    if (value == 'A') {
-      return 14;
-    }
-    if (value == 'T') {
-      return 10;
-    }
-    if (value == 'J') {
-      return 11;
-    }
-    if (value == 'Q') {
-      return 12;
-    }
-    if (value == 'K') {
-      return 13;
-    }
-    return value - 48;
-  }
 
   private PokerHands generatePokerHands(String cards) {
     String[] pokers = cards.split(" ");
@@ -32,8 +16,8 @@ public class Game {
     pokerHands.setPokers(pokerList);
     for (String pokerStr : pokers) {
       Poker poker = new Poker();
-      poker.setValue(calculateValue(pokerStr.charAt(0)));
-      poker.setKind(String.valueOf(pokerStr.charAt(1)));
+      poker.setValue(to(pokerStr.charAt(0)));
+      poker.setKind(valueOf(pokerStr.charAt(1)));
       pokerList.add(poker);
     }
     pokerList.sort(Comparator.comparing(Poker::getValue));
@@ -79,10 +63,10 @@ public class Game {
         continue;
       }
       if (blackList.get(i).getKey() < whiteList.get(i).getKey()) {
-        return "White win. - with high card " + whiteList.get(i).getKey();
+        return "White win. - with high card " + of(whiteList.get(i).getKey());
       }
       if (blackList.get(i).getKey() > whiteList.get(i).getKey()) {
-        return "Black win. - with high card " + blackList.get(i).getKey();
+        return "Black win. - with high card " + of(blackList.get(i).getKey());
       }
     }
     return "Tie";

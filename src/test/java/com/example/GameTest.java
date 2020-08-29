@@ -133,13 +133,13 @@ public class GameTest {
   }
 
   @Test
-  public void should_return_black_win_when_given_pokers_black_3S_8S_2S_6S_7S_white_2H_3H_5H_9H_KH() {
+  public void should_return_white_win_when_given_pokers_black_3S_8S_2S_6S_7S_white_2H_3H_5H_9H_KH() {
     // given
     String black = "3S 8S 2S 6S 7S";
     String white = "2H 3H 5H 9H KH";
     // when
     String result = game.run(black, white);
     // then
-    assertEquals("Black win. - with high card K", result);
+    assertEquals("White win. - with high card K", result);
   }
 }
