@@ -179,4 +179,16 @@ public class GameTest {
     // then
     assertEquals("Black win. - with Straight", result);
   }
+
+  @Test
+  public void
+  should_return_Black_win_when_given_pokers_black_AH_2D_3S_4C_5D_white_3H_3D_5S_9C_3D() {
+    // given
+    String black = "1H 2D 3S 4C 5D";
+    String white = "3H 3D 5S 9C 3D";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("Black win. - with Straight", result);
+  }
 }
