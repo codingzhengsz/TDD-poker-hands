@@ -215,4 +215,16 @@ public class GameTest {
     // then
     assertEquals("Tie", result);
   }
+
+  @Test
+  public void
+  should_return_Tie_when_run_given_pokers_black_3H_3D_5S_9C_5D_white_3H_3D_5S_9C_3D() {
+    // given
+    String black = "3H 3D 5S 9C 5D";
+    String white = "3H 3D 5S 9C 3D";
+    // when
+    String result = game.run(black, white);
+    // then
+    assertEquals("White win. - with Three of a kind", result);
+  }
 }
